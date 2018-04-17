@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!--<script src="math.js"></script> -->
+	<!--<script src="math.js"></script>-->
+	<script async src="./MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    #flexer{
+        display:flex;
+        flex-direction: column;
+    }
+</style>
+<body>
+
+<div id="flexer">
+
+    <div>YADL DIII</div>
+    <div id="plot"></div>
+    <div id="fx"></div>
+</div>
+</body>
+<script src="./index.js"></script>
+<link rel="stylesheet" href="style.css">
+
+
+<input type="textarea" name="textfield" id="input-textfield">
+= <div id="simplified"></div>
+<div id="pretty"></div>
+<button type="button" id="evaluate-button">Symbolicate</button>
+<br />
+<p id="output-text"></p>
+
+<script>
+    import math from "math.js"
+var button = document.getElementById('evaluate-button');
+
+button.addEventListener('click', function(e) {
+	var inputValue = document.getElementById('input-textfield').value;
+	var simplifiedInput = math.simplify(inputValue);
+	document.getElementById('simplified').innerHTML = simplifiedInput;
+
+	var simplifiedLatex = simplifiedInput.toTex();
+	document.getElementById('pretty').innerHTML = '$$' + simplifiedLatex + '$$';
+
+	
+	//var node = math.parse(simplifiedInput);
+	
+	// this is the tree of the equation
+	simplifiedInput.traverse(function (node, path, parent) {
+		var nodeValue = "";
+		if (node.type == 'OperatorNode') {
+			nodeValue = node.op;
+		} else if (node.type == 'ConstantNode') {
+			nodeValue = node.value;
+		} else if (node.type == 'SymbolNode') {
+			nodeValue = node.name;
+		} else if (node.type == 'FunctionNode') {
+			nodeValue = node.fn;
+		}
+		
+		var newParagraoh = document.createElement("P");                       // Create a <p> element
+		var textNode = document.createTextNode("[" + node.type + ": " + nodeValue + "]"); 
+		newParagraoh.appendChild(textNode);    
+	 	document.getElementById('output-text').appendChild(newParagraoh);
+	});
+	MathJax.Hub.Typeset()
+
+});
+</script>
+
+</html>
