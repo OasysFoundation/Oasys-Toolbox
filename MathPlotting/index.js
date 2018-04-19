@@ -19,7 +19,7 @@ document.getElementById('plot').addEventListener('mousemove', function (e) {
     const x = e.layerX - this.offsetLeft;
     const y = e.layerY - this.offsetTop;
     const mouse = {x:x, y:y}
-    plotHover(P.pathGroup, mouse);
+    plotHover(P.pathGroup, P, mouse);
 })
 
 document.getElementById('evaluate-button').addEventListener('click', function(e) {
@@ -36,27 +36,58 @@ document.getElementById('evaluate-button').addEventListener('click', function(e)
     // refresh the graph here with the new formula
 });
 
-function plotHover(container, mousePos) {
+function plotHover(container, plotter, mousePos) {
     //delete paths drawn in last frame
-    let p = document.getElementsByClassName('tempPath');
-    if (p.length > 0) {Array.from(p).forEach(e=> e.remove())};
-    const y = P.xPosToyPos(mousePos.x);
+
+    removeClass('tempPath')
+    removeClass('tempText')
+    const y = plotter.xPosToyPos(mousePos.x);
+
+    const vals = plotter.posToValue({x: mousePos.x, y:y});
 
     container.path()
+    //xPath - from left
         .attr('d', `M 0 ${y} L ${mousePos.x} ${y}`)
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.8)
         .attr('stroke', `blue` )
         .attr('class', 'tempPath')
 
+    putText(container, `x = ${vals.x.toFixed(2)} `, {x:mousePos.x - 30, y: y-20} )
+        .attr('fill', 'blue')
+        .attr('class', 'tempText')
+
+
+
     container.path()
+    //yPath - from bottom
         .attr('d', `M ${mousePos.x} ${y} L ${mousePos.x} ${P.size - 0}`)
         .attr('stroke-width', 1)
         .attr('stroke-opacity', 0.8)
         .attr('stroke', `green` )
         .attr('class', 'tempPath')
+
+    putText(container, `y = ${vals.y.toFixed(2)} `, {x:mousePos.x+2, y: y} )
+        .attr('fill', 'green')
+        .attr('class', 'tempText')
+}
+function removeClass(className) {
+    let p = document.getElementsByClassName(className);
+    if (p.length > 0) {Array.from(p).forEach(e=> e.remove())};
 }
 
+function putText(where, text, pos) {
+    const txt = where.text(text)
+    txt.attr({
+        x: pos.x,
+        y: pos.y
+    });
+    txt.font({
+        family: 'Helvetica',
+        size: 12
+    })
+    return txt;
+}
 
 const data = [
     {

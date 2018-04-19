@@ -15,6 +15,11 @@ input {
     background: white;
 }
 
+#plot {
+    background: floralwhite;
+    padding: 2em;
+}
+
 .textBox {
     background: cornflowerblue;
     color: black;
