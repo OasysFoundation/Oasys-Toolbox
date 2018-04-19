@@ -67,8 +67,17 @@ let Plot = class{
 
 
     }
-    init(func) {
-        this.f = func;
+    init(mathNode) {
+        if (mathNode) {
+            this.f = function (xVal) {
+                return mathNode.eval({x: xVal})
+            };
+        }
+        else {
+            this.f = function(x){
+                return Math.cos(x);
+            }
+        }
         this.computeValues();
         this.computePositions();
 

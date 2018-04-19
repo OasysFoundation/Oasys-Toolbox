@@ -6,9 +6,7 @@ import {Graph, Node, drawGraph} from "./TreeVis.js"
 import './style/katex.css'
 
 const P = new Plot();
-P.init(function(x) {
-    return Math.cos(x) //put in any function here
-});
+// P.init();
 console.log(P);
 
 const fx = new SVG("fx").size(1000, 1000);
@@ -32,6 +30,7 @@ document.getElementById('evaluate-button').addEventListener('click', function(e)
     });
 
     window.symbolicRepresentation = symbolizer(equation);
+    P.init(window.symbolicRepresentation)
     console.log("symRep", symbolicRepresentation);
     // refresh the graph here with the new formula
 });
