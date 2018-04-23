@@ -4,6 +4,11 @@ import katex from "katex"
 import {symbolizer, latexFromString} from "./symbolizer.js"
 import {Graph, Node, drawGraph} from "./TreeVis.js"
 import './style/katex.css'
+import './style/monokai-sublime.min.css'
+import './style/quill.snow.css'
+import './style/style.css'
+import {initQuill} from './editor.js'
+
 
 const P = new Plot();
 // P.init();
@@ -11,7 +16,6 @@ console.log(P);
 
 const fx = new SVG("fx").size(1000, 1000);
 const fxG = fx.group();
-
 
 document.getElementById('plot').addEventListener('mousemove', function (e) {
     const x = e.layerX - this.offsetLeft;
@@ -33,6 +37,7 @@ document.getElementById('evaluate-button').addEventListener('click', function(e)
     P.init(window.symbolicRepresentation)
     console.log("symRep", symbolicRepresentation);
     // refresh the graph here with the new formula
+
 });
 
 function plotHover(container, plotter, mousePos) {
@@ -127,6 +132,8 @@ const data = [
         children: ["Entropy"]
     }
 ]
+
+initQuill();
 
 // const dataNodes = data.map(d => new Node({name: d.name, children: d.children}))
 //

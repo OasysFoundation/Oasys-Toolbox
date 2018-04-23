@@ -20,6 +20,11 @@ input {
     margin: 2em;
 }
 
+#flexer {
+    width: 300px;
+    height: 200px;
+}
+
 .textBox {
     background: cornflowerblue;
     color: black;
@@ -130,5 +135,4 @@ a{
     margin-left: 0.5rem;
     background: linear-gradient(45deg, #ff83b3, #bc9bff)
 }
-
 

@@ -4,7 +4,7 @@ import SVG from "svg.js"
 let Plot = class{
     constructor(parameters = {
             containerID: 'plot',
-            size: 500,
+            size: 150,
             // granularity: 400, //steps -- paths drawn total
             interval: [0, 20],
             yRange: 2,
@@ -16,7 +16,7 @@ let Plot = class{
         this.unitSizeY = this.size / this.yRange;
         // this.incrementX = this.unitSizeX / this.gra;
 
-        this.container = new SVG(this.containerID).size(this.size * 2, this.size * 2); //random *2
+        this.container = new SVG(this.containerID).size(this.size, this.size ); //random *2
         this.pathGroup = this.container.group();
 
     }

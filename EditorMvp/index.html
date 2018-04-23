@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ 
+    
+    <title>MVP content creator with Quill</title>
+</head>
+
+<style>
+	#standalone-container {
+		margin: 50px auto;
+		max-width: 720px;
+	}
+	#editor-container {
+		height: 350px;
+	}
+	#flexer{
+		display:flex;
+		flex-direction: column;
+	}
+</style>
+<body>
+
+  <!-- SET UP EDITOR -->
+  <div id="standalone-container">
+  <div id="toolbar-container">
+    <span class="ql-formats">
+      <select class="ql-font"></select>
+      <select class="ql-size"></select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-bold"></button>
+      <button class="ql-italic"></button>
+      <button class="ql-underline"></button>
+      <button class="ql-strike"></button>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-color"></select>
+      <select class="ql-background"></select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-script" value="sub"></button>
+      <button class="ql-script" value="super"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-header" value="1"></button>
+      <button class="ql-header" value="2"></button>
+      <button class="ql-blockquote"></button>
+      <button class="ql-code-block"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-list" value="ordered"></button>
+      <button class="ql-list" value="bullet"></button>
+      <button class="ql-indent" value="-1"></button>
+      <button class="ql-indent" value="+1"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-direction" value="rtl"></button>
+      <select class="ql-align"></select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-link"></button>
+      <button class="ql-image"></button>
+      <button class="ql-video"></button>
+      <button class="ql-formula"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-clean"></button>
+    </span>
+    <span class="ql-formats">
+    	<input type="textarea" name="textfield" id="input-textfield">
+    </span>
+    <span class="ql-formats">
+    	<button class="ql-span" id="evaluate-button">plot</button>
+    </span>
+  </div>
+  <div id="editor-container"></div>
+  <div id="counter"></div>
+</div>
+
+
+  <!-- SET UP GRAPHING TOOL -->
+	
+	<div id="latex"></div>
+    <div id="l2"></div>
+    <div id="l3"></div>
+    <div id="l4"></div>
+
+    <div id="treeView"></div>
+
+<div id="flexer">
+    <div id="plot"></div>
+    <div id="fx"></div>
+</div>
+
+
+
+ <!-- LOAD ALL JS  -->
+<script src="./index.js"></script>
+
+</body>
+
+</html>
