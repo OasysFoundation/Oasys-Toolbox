@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Full Editor - Quill Rich Text Editor</title>
+  <title>MVP content creator with Quill</title>
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="language" content="english">
 <meta name="viewport" content="width=device-width">
-
-<meta name="description" content="Quill is a free, open source WYSIWYG editor built for the modern web. Completely customize it for any need with its modular architecture and expressive API.">
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@quilljs">
@@ -22,15 +20,12 @@
 <meta property="og:title" content="Full Editor - Quill">
 <meta property="og:site_name" content="Quill">
  
-<link rel="canonical" href="https://quilljs.com/standalone/full/">
-<link type="application/atom+xml" rel="alternate" href="https://quilljs.com/feed.xml" title="Quill - Your powerful rich text editor" />
   
-  
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+<link rel="stylesheet" href="css/katex.min.css" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
+<link rel="stylesheet" href="css/monokai-sublime.min.css" />
 
-<link rel="stylesheet" href="../quill.snow.css" />
+<link rel="stylesheet" href="css/quill.snow.css" />
 
 <style>
   body > #standalone-container {
@@ -97,16 +92,11 @@
 </div>
 
   
- 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-
-
-
-<script src="../quill.min.js"></script>
+<script src="js/quill.min.js"></script>
+<script src="js/katex.min.js"></script>
 
 <script>
+  // define custom module 
   const counter = class {
 	constructor(quill, options) {
 		this.quill = quill;
@@ -138,22 +128,23 @@
 	}
 }
 
+// register custom module
 Quill.register('modules/counter', counter);
 
-  // initialize editor
-  var quill = new Quill('#editor-container', {
-    modules: {
-      formula: false,
-      syntax: false,
-      counter: {
-      	container: '#counter',
+// initialize editor
+var quill = new Quill('#editor-container', {
+	modules: {
+	  formula: true, // latex formulas
+	  syntax: false, // code syntax highlighting
+	  counter: {
+	  	container: '#counter',
 		unit: 'word'
-      },
-      toolbar: '#toolbar-container'
-    },
-    placeholder: 'Compose an epic...',
-    theme: 'snow'
-  });
+	  },
+	  toolbar: '#toolbar-container'
+	},
+	placeholder: 'Compose an epic...',
+	theme: 'snow'
+});
 </script>
 
 
