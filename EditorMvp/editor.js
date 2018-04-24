@@ -89,6 +89,46 @@ var myHandler = function() {
 }
 */
 
+let BlockEmbed = Quill.import('blots/block/embed');
+
+class GraphBlot extends BlockEmbed {
+  static create(initialValue) {
+    const node = super.create();
+	node.setAttribute("spellcheck", false);
+
+    window.d3 = require('d3')
+const functionPlot = require('function-plot')
+const plot = functionPlot({
+  target: node,
+  data: [{
+    fn: 'x^2'
+  }]
+})
+	console.log(node)
+    return node;
+  }
+  
+  static value(node) {
+    return {
+      alt: node.getAttribute('alt'),
+      url: node.getAttribute('src')
+    };
+  }
+}
+
+GraphBlot.blotName = 'graph';
+GraphBlot.tagName = 'div';
+GraphBlot.className = 'graph';
+
+Quill.register(GraphBlot);
+
+document.getElementById('graph-button').addEventListener('click', function(e) {
+	let range = quill.getSelection(true);
+	quill.insertEmbed(range.index + 1, 'graph', "id", Quill.sources.USER);
+});
+
+
+
 // initialize editor
 const initQuill = function () {
 	Quill.register('modules/counter', counter);
@@ -115,14 +155,7 @@ const initQuill = function () {
 	*/
 }
 
-window.d3 = require('d3')
-  const functionPlot = require('function-plot')
-  functionPlot({
-	  target: '#quadratic',
-	  data: [{
-	    fn: 'x^2'
-	  }]
-  })
+
 
 var el = document.getElementById('sortableDiv');
 var sortable = Sortable.create(el, {

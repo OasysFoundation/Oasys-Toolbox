@@ -136,7 +136,6 @@ const data = [
 initQuill();
 
 
-
 // const dataNodes = data.map(d => new Node({name: d.name, children: d.children}))
 //
 //
