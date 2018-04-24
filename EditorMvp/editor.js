@@ -1,6 +1,7 @@
 import Quill from "quill"
 import katex from "katex"
 import d3 from "d3"
+import Sortable from "sortablejs"
 
   // define custom module 
   const counter = class {
@@ -123,5 +124,10 @@ window.d3 = require('d3')
 	  }]
   })
 
+var el = document.getElementById('sortableDiv');
+var sortable = Sortable.create(el, {
+	handle: ".dragHandle", // Restricts sort start click/touch to the specified element
+	draggable: ".sortableItem"
+});
 
 export {initQuill};

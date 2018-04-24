@@ -136,3 +136,62 @@ a{
     background: linear-gradient(45deg, #ff83b3, #bc9bff)
 }
 
+
+
+.sortableItem {
+    width: 600px;
+}
+
+.sortableItem .header .dragHandleWrapper {
+    width: 20px;
+    height: 15px;
+    background-color: black;
+    float:left;
+}
+
+.sortableItem .header .dragHandle {
+    width: 20px;
+    height: 15px;
+}
+
+.sortableItem .header .remove {
+    width: 20px;
+    height: 15px;
+    background-color: red;
+    float:left;
+}
+
+.sortableItem .header .add {
+    width: 20px;
+    height: 15px;
+    background-color: green;
+    float:left;
+}
+
+.sortableItem {
+    position: relative;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.sortableItem .header {
+    background-color: #eeeeee;
+    height: 15px;
+}
+
+.sortableItem .content {
+    clear: both;
+    height: 70px;
+}
+
+.sortableItem .contentMain {
+    width: 400px;
+    float: left;
+}
+
+.sortableItem .contentSide {
+    width: 200px;
+    float: left;
+    background-color: #ffffdd;
+    height: 100%;
+}
