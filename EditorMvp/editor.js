@@ -100,6 +100,7 @@ class GraphBlot extends BlockEmbed {
 const functionPlot = require('function-plot')
 const plot = functionPlot({
   target: node,
+  disableZoom: true,
   data: [{
     fn: 'x^2'
   }]
