@@ -5,6 +5,7 @@
   "scripts": {
     "start": "parcel index.html",
     "watch": "parcel watch index.html",
+    "deploy": "parcel build --out-dir public index.html && firebase deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

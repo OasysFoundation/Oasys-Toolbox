@@ -148,20 +148,8 @@ const initQuill = function () {
 	theme: 'snow'
 	});
 	window.quill = quill;
-
-	/*
-	document.getElementById('blockquote-button').addEventListener('click', function(e) {
-	    quill.format('blockquote', true);
-	});
-	*/
 }
 
 
-
-var el = document.getElementById('sortableDiv');
-var sortable = Sortable.create(el, {
-	handle: ".dragHandle", // Restricts sort start click/touch to the specified element
-	draggable: ".sortableItem"
-});
 
 export {initQuill};
