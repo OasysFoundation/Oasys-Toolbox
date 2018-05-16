@@ -106,19 +106,16 @@ class GraphBlot extends Embed {
 	  target: node,
 	  disableZoom: true,
 	  data: [{
-	    fn: initialValue
+	    fn: initialValue.equation
 	  }]
 	})
+	node.equation = initialValue.equation;
     return node;
   }
   
   static value(node) {
     return {
-      alt: node.getAttribute('alt'),
-      url: node.getAttribute('src'),
-      metadata: {
-      	formula: "x^2"
-      }
+      equation: node.equation
     };
   }
 }
@@ -133,7 +130,7 @@ document.getElementById('graph-button').addEventListener('click', function(e) {
 	var equation=prompt("Enter equation","x^3");
     if (equation != null) {
 		let range = quill.getSelection(true);
-		quill.insertEmbed(range.index + 1, 'graph', equation, Quill.sources.USER);
+		quill.insertEmbed(range.index + 1, 'graph', {equation: equation}, Quill.sources.USER);
    }
 });
 
