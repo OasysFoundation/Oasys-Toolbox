@@ -1,5 +1,6 @@
 import Quill from "quill"
 import katex from "katex"
+import './style/katex.css'
 import d3 from "d3"
 import Sortable from "sortablejs"
 
@@ -90,29 +91,34 @@ var myHandler = function() {
 */
 
 let BlockEmbed = Quill.import('blots/block/embed');
+let Embed = Quill.import('blots/embed');
 
-class GraphBlot extends BlockEmbed {
+class GraphBlot extends Embed {
   static create(initialValue) {
     const node = super.create();
 	node.setAttribute("spellcheck", false);
+	console.log(initialValue);
 
-    window.d3 = require('d3')
-const functionPlot = require('function-plot')
-const plot = functionPlot({
-  target: node,
-  disableZoom: true,
-  data: [{
-    fn: 'x^2'
-  }]
-})
-	console.log(node)
+
+	window.d3 = require('d3')
+	const functionPlot = require('function-plot')
+	const plot = functionPlot({
+	  target: node,
+	  disableZoom: true,
+	  data: [{
+	    fn: initialValue
+	  }]
+	})
     return node;
   }
   
   static value(node) {
     return {
       alt: node.getAttribute('alt'),
-      url: node.getAttribute('src')
+      url: node.getAttribute('src'),
+      metadata: {
+      	formula: "x^2"
+      }
     };
   }
 }
@@ -124,8 +130,11 @@ GraphBlot.className = 'graph';
 Quill.register(GraphBlot);
 
 document.getElementById('graph-button').addEventListener('click', function(e) {
-	let range = quill.getSelection(true);
-	quill.insertEmbed(range.index + 1, 'graph', "id", Quill.sources.USER);
+	var equation=prompt("Enter equation","x^3");
+    if (equation != null) {
+		let range = quill.getSelection(true);
+		quill.insertEmbed(range.index + 1, 'graph', equation, Quill.sources.USER);
+   }
 });
 
 
@@ -134,22 +143,39 @@ document.getElementById('graph-button').addEventListener('click', function(e) {
 const initQuill = function () {
 	Quill.register('modules/counter', counter);
 
-	var quill = new Quill('#editor-container', {
+	var quill = new Quill('#quilljs-container', {
 	modules: {
-	  formula: false, // latex formulas
-	  syntax: false, // code syntax highlighting
+	  formula: true,
+	  toolbar: "#toolbar-container",
+	  
 	  counter: {
 	  	container: '#counter',
 		unit: 'word'
 	  },
-	  toolbar: '#toolbar-container'
 	},
-	placeholder: 'Compose an epic...',
+	placeholder: 'Start your educational kick-ass journey…',
 	theme: 'snow'
 	});
 	window.quill = quill;
-}
 
+	
+	const ImageBlot = Quill.import('formats/image');
+	const Parchment = Quill.import('parchment');
+
+	window.quill.root.addEventListener('click', (ev) => {
+	  let selectedBlob = Parchment.find(ev.target);
+
+
+	  if (selectedBlob instanceof ImageBlot) {
+	    window.quill.setSelection(selectedBlob.offset(window.quill.scroll), 1, 'user');
+	  }
+
+	  if (selectedBlob instanceof GraphBlot) {
+	    window.quill.setSelection(selectedBlob.offset(window.quill.scroll), 1, 'user');
+	  }
+
+	});
+}
 
 
 export {initQuill};

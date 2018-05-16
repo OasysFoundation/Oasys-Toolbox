@@ -11,55 +11,29 @@ import {initQuill} from './editor.js'
 
 
 
-// const fx = new SVG("fx").size(1000, 1000);
-// const fxG = fx.group();
-
-
-// document.getElementById('evaluate-button').addEventListener('click', function(e) {
-//     const equation = document.getElementById('input-textfield').value;
-//     const latex = latexFromString(equation);
-
-//     const element = document.getElementById('latex');
-//     katex.render(latex, element, {
-//         //displayMode: true,
-//     });
-
-//     window.symbolicRepresentation = symbolizer(equation);
-//     P.init(window.symbolicRepresentation)
-//     console.log("symRep", symbolicRepresentation);
-//     // refresh the graph here with the new formula
-
-// });
-
-
-function removeClass(className) {
-    let p = document.getElementsByClassName(className);
-    if (p.length > 0) {Array.from(p).forEach(e=> e.remove())};
-}
-
-function putText(where, text, pos) {
-    const txt = where.text(text)
-    txt.attr({
-        x: pos.x,
-        y: pos.y
-    });
-    txt.font({
-        family: 'Helvetica',
-        size: 12
-    })
-    return txt;
-}
 
 initQuill();
 
+let slides = [];
+let currentSlide = 0;
+let numberOfSlides = 1;
 
-// const dataNodes = data.map(d => new Node({name: d.name, children: d.children}))
-//
-//
-// const treeDiv = new SVG("treeView").size(1200, 1200);
-// const graph = new Graph(dataNodes, treeDiv);
-//
-// drawGraph(graph, treeDiv, 500);
+const switchToSlide = function(destination) {
+    slides[currentSlide] = window.quill.getContents()
+    currentSlide = destination;
+    window.quill.setContents(slides[destination]);
+}
+window.switchToSlide = switchToSlide;
 
 
+document.getElementById('new-slide').addEventListener('click', function(e) {
+	numberOfSlides++;
+	let newSlideButton = document.createElement('button');
+	const currentSlideIndex = numberOfSlides-1;
+	newSlideButton.setAttribute("onclick", "switchToSlide("+ currentSlideIndex +")");
+	newSlideButton.innerHTML = 'Slide ' + numberOfSlides;
+	document.getElementById('new-slide').parentNode.insertBefore(newSlideButton, document.getElementById('new-slide'));
+});
 
+
+export {switchToSlide};
