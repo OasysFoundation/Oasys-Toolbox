@@ -1,0 +1,13 @@
+  {
+      "question": "What year was the film The Terminator released?",
+      "info": "The Terminator is a 1984 American science fiction action film directed by James Cameron. It stars Arnold Schwarzenegger as the Terminator, a cyborg assassin sent back in time from 2029 to 1984 to kill Sarah Connor (Linda Hamilton), whose son will one day become a savior against machines in a post-apocalyptic future.",
+      "options":
+        [
+          "1982",
+          "1983",
+          "1984",
+          "1984"
+        ],
+      "scores":
+        [0,3,1,2]
+  }

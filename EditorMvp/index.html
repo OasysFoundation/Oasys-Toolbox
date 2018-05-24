@@ -5,6 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="./css/reset.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="./css/slickQuiz.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="./css/master.css" media="screen" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
  
     <title>Oasys Content Editor</title>
 </head>
@@ -14,63 +25,115 @@
 		height: 720px;
     position: relative;
 	}
-	#flexer{
-		display:flex;
-		flex-direction: column;
-	}
-  #page-thumbnails {
-    height: 720px;
-    width:5rem;
-    float: left;
-    position: relative;
-  }
-  #editor {
-    
-  }
-  #authoring-tool {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-  }
 </style>
 <body>
 
-  <div id="authoring-tool">
-  <div id="page-thumbnails">
-    <button name="slide-button" onclick="switchToSlide(0)" style="height:50px;width:100%;">Slide 1</button>
-    <button id="new-slide" style="height:50px;width:100%;">Add new Slide</button>
+  <div class="ui grid">
+  <div class="row">
+      <div class="ui action input">
+        <input type="text" placeholder="Content ID">
+        <button class="ui teal right labeled icon button">
+          <i class="download icon"></i>
+          Load
+        </button>
+      </div>
+      <div class="ui action input">
+        <input type="text" placeholder="Content ID">
+        <button class="ui teal right labeled icon button">
+          <i class="save icon"></i>
+          Save
+        </button>
+      </div>
   </div>
-  <!-- SET UP EDITOR -->
-<div id="editor"> 
-  <div id="toolbar-container">
-    <span class="ql-formats">
-      <button class="ql-header" value="1"></button>
-      <button class="ql-header" value="2"></button>
-    </span>
-    <span class="ql-formats">
-      <button class="ql-bold"></button>
-      <button class="ql-italic"></button>
-    </span>
-    <span class="ql-formats">
-      <button class="ql-list" value="ordered"></button>
-      <button class="ql-list" value="bullet"></button>
-    </span>
-    <span class="ql-formats">
-      <button class="ql-link"></button>
-      <button class="ql-image"></button>
-      <button class="ql-video"></button>
-      <button class="ql-formula"></button>
-    </span>
-    <span class="ql-formats">
-      <button class="ql-span" id="graph-button">Insert Graph</button>
-    </span>
+  <div class="row">
+      <button class="ui labeled icon button" id="new-slide">
+        <i class="add icon"></i>
+        Add New Slide
+      </button>
+      <button class="ui labeled icon button" id="new-quiz-slide">
+        <i class="add icon"></i>
+        Add New Quiz Slide
+      </button>
   </div>
+</div>
 
-  <div id="quilljs-container"></div>
+
+
+
+
+
+
+<div class="ui grid">
+  <div class="five wide column">
+    <div class="ui vertical pointing menu">
+      <a class="item active" id="slide-1" onclick="switchToSlide(0);" name="slide-button">
+        Slide 1
+      </a>
+      <div id="insert-new-slide-here"> </div>
+      
+    </div>
   </div>
+  <div class="eleven wide stretched column">
+    <!-- SET UP EDITOR -->
+    <div id="editor"> 
+      <div id="toolbar-container">
+        <span class="ql-formats">
+          <button class="ql-header" value="1"></button>
+          <button class="ql-header" value="2"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-bold"></button>
+          <button class="ql-italic"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-list" value="ordered"></button>
+          <button class="ql-list" value="bullet"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-link"></button>
+          <button class="ql-image"></button>
+          <button class="ql-video"></button>
+          <button class="ql-formula"></button>
+        </span>
+        <span class="ql-formats">
+          <button class="ql-span" id="graph-button">Insert Graph</button>
+        </span>
+      </div>
+
+      <div id="quilljs-container"></div>
+      </div>
+      </div>
+    </div>
   </div>
+</div>
 
 <div id="counter"></div>
+
+<!-- QUIZ -->
+<div id="slickQuiz">
+    <h1 class="quizName"><!-- where the quiz name goes --></h1>
+
+    <div class="quizArea">
+        <div class="quizHeader">
+            <!-- where the quiz main copy goes -->
+
+            <a class="button startQuiz" href="#">Get Started!</a>
+        </div>
+
+        <!-- where the quiz gets built -->
+    </div>
+
+    <div class="quizResults">
+        <h3 class="quizScore">You Scored: <span><!-- where the quiz score goes --></span></h3>
+
+        <h3 class="quizLevel"><strong>Ranking:</strong> <span><!-- where the quiz ranking level goes --></span></h3>
+
+        <div class="quizResultsCopy">
+            <!-- where the quiz result copy goes -->
+        </div>
+    </div>
+</div>
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha1/katex.min.css" integrity="sha384-8QOKbPtTFvh/lMY0qPVbXj9hDh+v8US0pD//FcoYFst2lCIf0BmT58+Heqj0IGyx" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha1/katex.min.js" integrity="sha384-GR8SEkOO1rBN/jnOcQDFcFmwXAevSLx7/Io9Ps1rkxWp983ZIuUGfxivlF/5f5eJ" crossorigin="anonymous"></script>
@@ -79,5 +142,8 @@
 <script src="./index.js"></script>
 
 </body>
+
+
+
 
 </html>
