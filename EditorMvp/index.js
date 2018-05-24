@@ -60,7 +60,22 @@ document.getElementById('new-slide').addEventListener('click', function(e) {
 	newSlideButton.setAttribute("onclick", "switchToSlide("+ currentSlideIndex +")");
 	newSlideButton.setAttribute("name", "slide-button");
 	newSlideButton.setAttribute("style", "width:100%;");
-	newSlideButton.innerHTML = 'Slide ' + numberOfSlides;
+	newSlideButton.innerHTML = 'Slide ' + numberOfSlides + '<i class="paragraph icon"></i>';
+	document.getElementById('insert-new-slide-here').parentNode.insertBefore(newSlideButton, document.getElementById('insert-new-slide-here'));
+	switchToSlide(currentSlideIndex);
+});
+
+
+document.getElementById('new-quiz-slide').addEventListener('click', function(e) {
+	numberOfSlides++;
+	let newSlideButton = document.createElement('a');
+	newSlideButton.setAttribute("class", "item");
+	const currentSlideIndex = numberOfSlides-1;
+	slides[currentSlideIndex] = {"ops":[{"insert":"This is the beginning of the exiting journey of slide no " + numberOfSlides + "\n"}]}
+	newSlideButton.setAttribute("onclick", "switchToSlide("+ currentSlideIndex +")");
+	newSlideButton.setAttribute("name", "slide-button");
+	newSlideButton.setAttribute("style", "width:100%;");
+	newSlideButton.innerHTML = 'Slide ' + numberOfSlides + ' – Quiz <i class="help icon"></i>';
 	document.getElementById('insert-new-slide-here').parentNode.insertBefore(newSlideButton, document.getElementById('insert-new-slide-here'));
 	switchToSlide(currentSlideIndex);
 });

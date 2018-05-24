@@ -17,49 +17,63 @@
       crossorigin="anonymous"></script>
     <script src="semantic/dist/semantic.min.js"></script>
  
-    <title>Oasys Content Editor</title>
+    <title>Oasys Auhtoring</title>
 </head>
 
 <style>
 	#quilljs-container {
 		height: 720px;
-    position: relative;
 	}
+  body {
+    height: 100%;
+    width: 100%;
+  }
 </style>
 <body>
 
-  <div class="ui grid">
-  <div class="row">
-      <div class="ui action input">
-        <input type="text" placeholder="Content ID">
-        <button class="ui teal right labeled icon button">
-          <i class="download icon"></i>
-          Load
-        </button>
+  <div class="ui page grid">
+
+    <header class="ui secondary menu">
+      <div class="ui container">
+        <a class="item" href="#">Oasys Auhtoring</a>
+        <div class="right menu">
+          <a class="item" href="#">
+            <div class="ui green button">Sign up</div>
+          </a>
+          <a class="item" href="#">Log in</a>
+        </div>
       </div>
-      <div class="ui action input">
-        <input type="text" placeholder="Content ID">
-        <button class="ui teal right labeled icon button">
-          <i class="save icon"></i>
-          Save
-        </button>
-      </div>
-  </div>
-  <div class="row">
-      <button class="ui labeled icon button" id="new-slide">
-        <i class="add icon"></i>
-        Add New Slide
+    </header>
+
+
+<div class="ui grid">
+<div class="row">
+    <div class="ui action input">
+      <input type="text" placeholder="Content ID">
+      <button class="ui teal right labeled icon button">
+        <i class="copy icon"></i>
+        Load
       </button>
-      <button class="ui labeled icon button" id="new-quiz-slide">
-        <i class="add icon"></i>
-        Add New Quiz Slide
+    </div>
+    <div class="ui action input">
+      <input type="text" placeholder="Content ID">
+      <button class="ui teal right labeled icon button">
+        <i class="save icon"></i>
+        Save
       </button>
-  </div>
+    </div>
 </div>
-
-
-
-
+<div class="row">
+    <button class="ui labeled icon button" id="new-slide">
+      <i class="add icon"></i>
+      Add New Slide
+    </button>
+    <button class="ui labeled icon button" id="new-quiz-slide">
+      <i class="add icon"></i>
+      Add New Quiz Slide
+    </button>
+</div>
+</div>
 
 
 
@@ -67,7 +81,7 @@
   <div class="five wide column">
     <div class="ui vertical pointing menu">
       <a class="item active" id="slide-1" onclick="switchToSlide(0);" name="slide-button">
-        Slide 1
+        Slide 1 <i class="paragraph icon"></i>
       </a>
       <div id="insert-new-slide-here"> </div>
       
@@ -110,7 +124,7 @@
 <div id="counter"></div>
 
 <!-- QUIZ -->
-<div id="slickQuiz">
+<div id="slickQuiz" style="display: none;">
     <h1 class="quizName"><!-- where the quiz name goes --></h1>
 
     <div class="quizArea">
@@ -140,7 +154,7 @@
 
  <!-- LOAD ALL JS  -->
 <script src="./index.js"></script>
-
+</div>
 </body>
 
 
