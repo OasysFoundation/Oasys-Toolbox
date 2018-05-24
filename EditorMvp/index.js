@@ -16,17 +16,27 @@ import {initQuiz} from './quizzer.js'
 initQuill();
 initQuiz();
 
-let slides = [];
+let slides = [{"slidetype": "quill", "content":{}}];
 window.slides = slides
-let currentSlide = 0;
+let currentSlideIndex = 0;
 let numberOfSlides = 1;
 
-const switchToSlide = function(destination) {
-    slides[currentSlide] = window.quill.getContents()
-    const previousButton = document.getElementsByName("slide-button")[currentSlide];
-    currentSlide = destination;
-    window.quill.setContents(slides[destination]);
-    const currentButton = document.getElementsByName("slide-button")[destination];
+const switchToSlide = function(destinationIndex) {
+    slides[currentSlideIndex].content = window.quill.getContents()
+    const previousButton = document.getElementsByName("slide-button")[currentSlideIndex];
+    currentSlideIndex = destinationIndex;
+    const currentSlideContent = slides[currentSlideIndex]
+    console.log(currentSlideContent);
+    if (currentSlideContent.slidetype == "quiz") {
+    	document.getElementById('slickQuiz').setAttribute("style", "");
+    	document.getElementById('editor').setAttribute("style", "display: none;");
+    } else if (currentSlideContent.slidetype == "quill") {
+    	document.getElementById('slickQuiz').setAttribute("style", "display: none;");
+    	document.getElementById('editor').setAttribute("style", "");
+    	window.quill.setContents(currentSlideContent.content);
+    }
+    
+    const currentButton = document.getElementsByName("slide-button")[currentSlideIndex];
     if (previousButton != null) {
     	previousButton.setAttribute("class", "item");	
     }
@@ -56,7 +66,10 @@ document.getElementById('new-slide').addEventListener('click', function(e) {
 	let newSlideButton = document.createElement('a');
 	newSlideButton.setAttribute("class", "item");
 	const currentSlideIndex = numberOfSlides-1;
-	slides[currentSlideIndex] = {"ops":[{"insert":"This is the beginning of the exiting journey of slide no " + numberOfSlides + "\n"}]}
+	slides[currentSlideIndex] = {
+									"slidetype": "quill",
+									"content": {"ops":[{"insert":"This is the beginning of the exiting journey of slide no " + numberOfSlides + "\n"}]}
+								}
 	newSlideButton.setAttribute("onclick", "switchToSlide("+ currentSlideIndex +")");
 	newSlideButton.setAttribute("name", "slide-button");
 	newSlideButton.setAttribute("style", "width:100%;");
@@ -71,7 +84,10 @@ document.getElementById('new-quiz-slide').addEventListener('click', function(e) 
 	let newSlideButton = document.createElement('a');
 	newSlideButton.setAttribute("class", "item");
 	const currentSlideIndex = numberOfSlides-1;
-	slides[currentSlideIndex] = {"ops":[{"insert":"This is the beginning of the exiting journey of slide no " + numberOfSlides + "\n"}]}
+	slides[currentSlideIndex] = {
+									"slidetype": "quiz",
+									"content": {}
+								}
 	newSlideButton.setAttribute("onclick", "switchToSlide("+ currentSlideIndex +")");
 	newSlideButton.setAttribute("name", "slide-button");
 	newSlideButton.setAttribute("style", "width:100%;");

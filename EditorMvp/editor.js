@@ -11,7 +11,7 @@ import Sortable from "sortablejs"
 		this.options = options;
 		this.container = document.querySelector(options.container);
 		quill.on('text-change', this.update.bind(this));
-		this.update();  // Account for initial contents
+		//this.update();  // Account for initial contents
 	}
 
 	calculate() {
@@ -32,7 +32,7 @@ import Sortable from "sortablejs"
 		if (length !== 1) {
 			label += 's';
 		}
-		this.container.innerText = length + ' ' + label;
+		//this.container.innerText = length + ' ' + label;
 	}
 }
 
