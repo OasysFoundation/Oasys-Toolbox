@@ -46,18 +46,20 @@
     </header>
 
 
+
+
 <div class="ui grid">
 <div class="row">
     <div class="ui action input">
       <input type="text" placeholder="Content ID">
-      <button class="ui teal right labeled icon button">
+      <button class="ui teal right labeled icon button" onclick="loadContent()">
         <i class="copy icon"></i>
         Load
       </button>
     </div>
     <div class="ui action input">
       <input type="text" placeholder="Content ID">
-      <button class="ui teal right labeled icon button">
+      <button type="button" class="ui teal right labeled icon button" onclick="saveContent()">
         <i class="save icon"></i>
         Save
       </button>
@@ -111,12 +113,10 @@
           <button class="ql-video"></button>
           <button class="ql-formula"></button>
         </span>
-        <span class="ql-formats">
-          <button class="ql-span" id="graph-button">Insert Graph</button>
-        </span>
-       </div>
-
-        <div id="quilljs-container"></div>
+        <div class="ui action">
+          <div class="ui button" id="graph-button">Insert Graph</div>
+        </div>
+        
       </div>
 
      <!-- SET UP QUIZ -->
@@ -144,6 +144,16 @@
     <!-- QUIZ -->
     <br>
     <div id="slickQuiz" style="display: none;">
+
+      <div class="ui pointing menu">
+        <a class="item active">
+          Edit
+        </a>
+        <a class="item">
+          Preview
+        </a>
+      </div>
+
         <h1 class="quizName"><!-- where the quiz name goes --></h1>
 
         <div class="quizArea">
@@ -171,6 +181,14 @@
   </div>
 </div>
 
+<button class="ui left labeled icon button">
+  <i class="left arrow icon"></i>
+  Previous
+</button>
+<button class="ui right labeled icon button">
+  <i class="right arrow icon"></i>
+  Next
+</button>
 
 
 

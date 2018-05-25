@@ -59,17 +59,35 @@ const saveContent = function() {
 	var xhr = new XMLHttpRequest();
 	var url = "http://api.joinoasys.org/saveEditor";
 	xhr.open("POST", url, true);
+
 	xhr.setRequestHeader("Content-Type", "application/json");
+
+	xhr.onreadystatechange = function () {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	        console.log(xhr.responseText);
+	    }
+	};
+	xhr.send(JSON.stringify({"slides": slides}));
+}
+window.saveContent = saveContent;
+
+
+const loadContent = function() {
+	var xhr = new XMLHttpRequest();
+	var url = "http://api.joinoasys.org/loadEditor";
+	xhr.open("GET", url, true);
+
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.setRequestHeader("id", "5b0825a38a745375be810999");
 	xhr.onreadystatechange = function () {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
 	        var json = JSON.parse(xhr.responseText);
 	        console.log(json);
 	    }
 	};
-	var data = JSON.stringify(slides);
-	xhr.send(data);
+	xhr.send();
 }
-window.saveContent = saveContent;
+window.loadContent = loadContent;
 
 document.getElementById('new-slide').addEventListener('click', function(e) {
 	numberOfSlides++;
