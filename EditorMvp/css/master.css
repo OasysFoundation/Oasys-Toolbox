@@ -139,3 +139,7 @@ ul.responses li.incorrect p span {
     clear: both;
     margin-top: 20px;
 }
+
+textarea {
+    resize: none;
+}

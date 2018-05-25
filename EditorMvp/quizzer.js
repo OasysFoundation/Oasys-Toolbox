@@ -7,7 +7,7 @@ const initQuiz = function () {
 	const quizJSON = {
             "info": {
                 "name":    "The Legendary Oasys Quiz2",
-                "main":    "<p>Think you're smart enough to be on Jeopardy? Find out with this super crazy knowledge quiz!</p>",
+                "main":    "",
                 "results": "<h5>Learn More</h5><p>Etiam scelerisque, nunc ac egestas consequat, odio nibh euismod nulla, eget auctor orci nibh vel nisi. Aliquam erat volutpat. Mauris vel neque sit amet nunc gravida congue sed sit amet purus.</p>",
                 "level1":  "Jeopardy Ready",
                 "level2":  "Jeopardy Contender",
@@ -73,7 +73,11 @@ const initQuiz = function () {
             ]
         };
 
-    $('#slickQuiz').slickQuiz({json: quizJSON});
+    /*$('#slickQuiz').slickQuiz({
+        skipStartButton: true,
+        json: quizJSON
+    });*/
+
 }
 
 export {initQuiz};
