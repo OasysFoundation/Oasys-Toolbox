@@ -44,6 +44,24 @@ const switchToSlide = function(destinationIndex) {
 }
 window.switchToSlide = switchToSlide;
 
+const reloadForSlideData = function(newSlides) {
+	slides = newSlides;
+	resetEditor();
+	slides.forEach(function(slide) {
+		console.log(slide);
+		addNewSlide(slide.slidetype, slide.content, false);
+	})
+}
+
+const resetEditor = function() {
+	currentSlideIndex = 0;
+	numberOfSlides = 0;
+	var nodes = document.getElementsByName("slide-button");
+	nodes.forEach(function(node) {
+		node.parentNode.removeChild(node);
+	})
+}
+
 const saveContent = function() {
 	var xhr = new XMLHttpRequest();
 	var url = "http://api.joinoasys.org/saveEditor";
@@ -66,12 +84,15 @@ const loadContent = function() {
 	var url = "http://api.joinoasys.org/loadEditor";
 	xhr.open("GET", url, true);
 
+	const contentId = document.getElementById("load-content-id").value;
+	console.log(contentId);
+
 	xhr.setRequestHeader("Content-Type", "application/json");
-	xhr.setRequestHeader("id", "5b0825a38a745375be810999");
+	xhr.setRequestHeader("id", contentId);
 	xhr.onreadystatechange = function () {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
 	        var json = JSON.parse(xhr.responseText);
-	        console.log(json);
+	        reloadForSlideData(json.slides);
 	    }
 	};
 	xhr.send();
@@ -80,37 +101,36 @@ window.loadContent = loadContent;
 
 
 document.getElementById('new-slide').addEventListener('click', function(e) {
-	numberOfSlides++;
-	let newSlideButton = document.createElement('a');
-	newSlideButton.setAttribute("class", "item");
-	const currentSlideIndex = numberOfSlides-1;
-	slides[currentSlideIndex] = {
-									"slidetype": "quill",
-									"content": {"ops":[{"insert":"This is the beginning of the exiting journey of slide no " + numberOfSlides + "\n"}]}
-								}
-	newSlideButton.setAttribute("onclick", "switchToSlide("+ currentSlideIndex +")");
-	newSlideButton.setAttribute("name", "slide-button");
-	newSlideButton.setAttribute("style", "width:100%;");
-	newSlideButton.innerHTML = 'Slide ' + numberOfSlides + '<i class="paragraph icon"></i>';
-	document.getElementById('insert-new-slide-here').parentNode.insertBefore(newSlideButton, document.getElementById('insert-new-slide-here'));
-	switchToSlide(currentSlideIndex);
+	const content = {"ops":[{"insert":"This is the beginning of the exiting journey of slide no " + numberOfSlides + "\n"}]};
+	addNewSlide("quill", content, true);
 });
 
 
 document.getElementById('new-quiz-slide').addEventListener('click', function(e) {
+	addNewSlide("quiz", {}, true);
+});
+
+const addNewSlide = function(slideType, slideContent, switchToNewSlide) {
 	numberOfSlides++;
-	let newSlideButton = document.createElement('a');
-	newSlideButton.setAttribute("class", "item");
+	let newSlideThumbnail = document.createElement('a');
+	newSlideThumbnail.setAttribute("class", "item");
 	const currentSlideIndex = numberOfSlides-1;
 	slides[currentSlideIndex] = {
-									"slidetype": "quiz",
-									"content": {}
-								}
-	newSlideButton.setAttribute("onclick", "switchToSlide("+ currentSlideIndex +")");
-	newSlideButton.setAttribute("name", "slide-button");
-	newSlideButton.setAttribute("style", "width:100%;");
-	newSlideButton.innerHTML = 'Slide ' + numberOfSlides + ' – Quiz <i class="help icon"></i>';
-	document.getElementById('insert-new-slide-here').parentNode.insertBefore(newSlideButton, document.getElementById('insert-new-slide-here'));
-	switchToSlide(currentSlideIndex);
-});
+									"slidetype": slideType,
+									"content": slideContent
+								};
+    newSlideThumbnail.setAttribute("onclick", "switchToSlide("+ currentSlideIndex +")");
+    newSlideThumbnail.setAttribute("name", "slide-button");
+	newSlideThumbnail.setAttribute("style", "width:100%;");
+	if (slideType == "quiz") {
+		newSlideThumbnail.innerHTML = 'Slide ' + numberOfSlides + ' – Quiz <i class="help icon"></i>';
+	} else {
+		newSlideThumbnail.innerHTML = 'Slide ' + numberOfSlides + '<i class="paragraph icon"></i>';
+	}
+	
+	document.getElementById('insert-new-slide-here').parentNode.insertBefore(newSlideThumbnail, document.getElementById('insert-new-slide-here'));
+	if (switchToNewSlide) {
+		switchToSlide(currentSlideIndex);
+	}
+}
 
