@@ -73,7 +73,11 @@ const initQuiz = function () {
             ]
         };
 
-    $('#slickQuiz').slickQuiz({json: quizJSON});
+    /*$('#slickQuiz').slickQuiz({
+        skipStartButton: true,
+        json: quizJSON
+    });*/
+
 }
 
 export {initQuiz};

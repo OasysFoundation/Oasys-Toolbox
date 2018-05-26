@@ -17,7 +17,7 @@
       crossorigin="anonymous"></script>
     <script src="semantic/dist/semantic.min.js"></script>
  
-    <title>Oasys Auhtoring</title>
+    <title>Oasys Authoring</title>
 </head>
 
 <style>
@@ -35,7 +35,7 @@
 
     <header class="ui secondary menu">
       <div class="ui container">
-        <a class="item" href="#">Oasys Auhtoring</a>
+        <a class="item" href="#">Oasys Authoring</a>
         <div class="right menu">
           <a class="item" href="#">
             <div class="ui green button">Sign up</div>
@@ -90,6 +90,8 @@
     </div>
   </div>
   <div class="eleven wide stretched column">
+
+
     <!-- SET UP EDITOR -->
     <div id="editor"> 
       <div id="toolbar-container">
@@ -111,16 +113,30 @@
           <button class="ql-video"></button>
           <button class="ql-formula"></button>
         </span>
-        
-
         <div class="ui action">
           <div class="ui button" id="graph-button">Insert Graph</div>
         </div>
-
+        
       </div>
 
-      <div id="quilljs-container"></div>
+     <!-- SET UP QUIZ -->
+      <div id="quiz" style="display: none;">
+        <div class="ui grid">
+          <div class="row">
+              <button class="ui labeled icon button" id="quiz-navi-editor">
+                Editor
+              </button>
+              <button class="ui labeled icon button" id="quiz-navi-preview">
+                Preview
+              </button>
+          </div>
+        </div>
+        <div id="quiz-editor">
+        </div>
+        <div id="quiz-preview" style="display: none;">
+        </div>
       </div>
+
       </div>
     </div>
 

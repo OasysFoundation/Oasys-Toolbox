@@ -3,18 +3,18 @@ import Plot from "./plot.js"
 import katex from "katex"
 import {symbolizer, latexFromString} from "./symbolizer.js"
 import {Graph, Node, drawGraph} from "./TreeVis.js"
+import "./js/slickQuiz.js"
 import './style/katex.css'
 import './style/monokai-sublime.min.css'
 import './style/quill.snow.css'
 import './style/style.css'
 import {initQuill} from './editor.js'
-import {initQuiz} from './quizzer.js'
-
-
+//import {initQuiz} from './quizzer.js'
+import {quizEditor} from './quizEditor.js'
 
 
 initQuill();
-initQuiz();
+//initQuiz();
 
 let slides = [{"slidetype": "quill", "content":{}}];
 window.slides = slides
@@ -22,16 +22,27 @@ let currentSlideIndex = 0;
 let numberOfSlides = 1;
 
 const switchToSlide = function(destinationIndex) {
-    slides[currentSlideIndex].content = window.quill.getContents()
+	if (slides[currentSlideIndex].slidetype == "quiz") {
+    	slides[currentSlideIndex].content = document.getElementById('quiz-editor').cloneNode(true);
+	} else if (slides[currentSlideIndex].slidetype == "quill") {
+    	slides[currentSlideIndex].content = window.quill.getContents();
+	}
     const previousButton = document.getElementsByName("slide-button")[currentSlideIndex];
     currentSlideIndex = destinationIndex;
-    const currentSlideContent = slides[currentSlideIndex]
-    console.log(currentSlideContent);
+    const currentSlideContent = slides[currentSlideIndex];
+
     if (currentSlideContent.slidetype == "quiz") {
-    	document.getElementById('slickQuiz').setAttribute("style", "");
+    	document.getElementById('quiz').setAttribute("style", "");
+    	if (Object.keys(currentSlideContent.content) == 0 && // check if object empty
+    		currentSlideContent.content.constructor == Object){
+    		const editor = new quizEditor(document.getElementById('quiz-editor'));
+    	} else {
+    		var editor = document.getElementById('quiz-editor');
+    		editor = currentSlideContent.content;
+    	}
     	document.getElementById('editor').setAttribute("style", "display: none;");
     } else if (currentSlideContent.slidetype == "quill") {
-    	document.getElementById('slickQuiz').setAttribute("style", "display: none;");
+    	document.getElementById('quiz').setAttribute("style", "display: none;");
     	document.getElementById('editor').setAttribute("style", "");
     	window.quill.setContents(currentSlideContent.content);
     }
@@ -99,12 +110,10 @@ const loadContent = function() {
 }
 window.loadContent = loadContent;
 
-
 document.getElementById('new-slide').addEventListener('click', function(e) {
 	const content = {"ops":[{"insert":"This is the beginning of the exiting journey of slide no " + numberOfSlides + "\n"}]};
 	addNewSlide("quill", content, true);
 });
-
 
 document.getElementById('new-quiz-slide').addEventListener('click', function(e) {
 	addNewSlide("quiz", {}, true);
@@ -134,3 +143,49 @@ const addNewSlide = function(slideType, slideContent, switchToNewSlide) {
 	}
 }
 
+document.getElementById('quiz-navi-editor').addEventListener('click', function(e) {
+	document.getElementById('quiz-editor').setAttribute("style", "");
+	document.getElementById('quiz-preview').setAttribute("style", "display: none;");
+});
+
+document.getElementById('quiz-navi-preview').addEventListener('click', function(e) {
+	document.getElementById('quiz-editor').setAttribute("style", "display: none;");
+	document.getElementById('quiz-preview').setAttribute("style", "");
+
+	var question = document.getElementById('question-text').text;
+	var correct = document.getElementById('feedback-correct').text;
+	var incorrect = document.getElementById('feedback-incorrect').text;
+
+	var answers = [];
+
+	var answerDivs = document.getElementById('quiz-answers');
+	var answerElems = answerDivs.getElementsByClassName('answer-text');
+	var correctElems = answerDivs.getElementsByClassName('answer-value-select');
+
+	for (var i=0; i<answerElems.length; i++) {
+		var option = answerElems[i].textContent;
+		console.log(correctElems[i]);
+		var correct = correctElems[i].value;
+		var answer = {"option": option,    "correct": correct};
+		answers.push(answer);
+	}
+
+	const quizJSON = {
+            "info": {
+                "name":    "Quiz-Slide",
+                "main":    ""
+            },
+            "questions": [{ 
+                    "q": question,
+                    "a": answers,
+                    "correct": correct,
+                    "incorrect": incorrect 
+                }
+            ]
+        };
+
+    $('#quiz-preview').slickQuiz({
+        skipStartButton: true,
+        json: quizJSON
+    });
+});
