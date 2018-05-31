@@ -3,7 +3,7 @@ import Plot from "./plot.js"
 import katex from "katex"
 import {symbolizer, latexFromString} from "./symbolizer.js"
 import {Graph, Node, drawGraph} from "./TreeVis.js"
-import "./js/slickQuiz.js"
+//import "./js/slickQuiz.js"
 import './style/katex.css'
 import './style/monokai-sublime.min.css'
 import './style/quill.snow.css'

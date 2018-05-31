@@ -27,8 +27,6 @@ const quizEditor = class {
 		this.content.appendChild(this.createFeedback());
 	}
 
-	// FYI Markus: This is *not* a kind of function I feel I should code. Are there no frameworks for this? 
-	// It seems hilarious that I should need to program the most basic functionality myself...
 	createDOMElement(name, attributes) {
 		var elem = document.createElement(name);
 		for (var key in attributes) {
